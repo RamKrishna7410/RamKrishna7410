@@ -1,6 +1,6 @@
 <img align="right" width="30%" src="Assets/Programming.gif">
 
-# Hi👋, I'm [Ranit Manik](https://RamKrishna7410.github.io/Portfolio-1.0/)
+# Hi👋, I'm RamKrishna7410
 
 <hr>
 
