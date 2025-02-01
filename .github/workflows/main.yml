@@ -1,16 +1,18 @@
 name: Generate Datas
 
 on:
-  schedule: # execute every 12 hours
+  schedule: 
     - cron: "* */12 * * *"
   workflow_dispatch:
+
+permissions: 
+  contents: write  # ✅ Grant write permission to GITHUB_TOKEN
 
 jobs:
   build:
     name: Jobs to update datas
     runs-on: ubuntu-latest
     steps:
-      # Snake Animation
       - uses: Platane/snk@v3.2.0
         id: snake-gif
         with:
