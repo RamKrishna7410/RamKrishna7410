@@ -1,0 +1,38 @@
+name: Update README
+
+on:
+  schedule:
+    - cron: "0 * * * *" # Runs every hour
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Git User
+        run: |
+          git config --global user.name "RamKrishna7410"
+          git config --global user.email "ranitmanik555@gmail.com"
+
+      - name: Fetch Weather & Time
+        run: |
+          TIME=$(date +"%I:%M %p") # Get current time
+          WEATHER=$(curl -s "https://wttr.in/Kolkata?format=%C+%t") # Change city if needed
+          QUOTE=$(curl -s https://api.quotable.io/random | jq -r '.content')
+
+          echo "Updating README.md"
+          sed -i "s|⏳ Last Updated: .*|⏳ Last Updated: ${TIME}|" README.md
+          sed -i "s|🌤 Weather: .*|🌤 Weather: ${WEATHER}|" README.md
+          sed -i "s|💬 Quote: .*|💬 Quote: \"${QUOTE}\"|" README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git add README.md
+          git commit -m "⏳ Updated time, weather, and quote" || exit 0
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
